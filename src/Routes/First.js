@@ -25,7 +25,29 @@ const First = () => {
   useEffect(() => {
     target.current.innerHTML = text;
   }, [text]);
-  return <Wrapper ref={target}></Wrapper>;
+  useEffect(()=>{
+    document.addEventListener("selectstart", ()=>{
+      if(window.getSelection().toString() !== ""){
+        console.log(window.getSelection().toString());
+        const highlighting = document.createElement('span');
+        highlighting.classList.add("highlight");
+        try{
+          window.getSelection().getRangeAt(0).surroundContents(highlighting);
+          console.log(window.getSelection().getRangeAt(0))
+        }catch(e){
+          console.log(e);
+          console.log(window.getSelection().getRangeAt(0))
+        }
+      }
+    })
+
+    return ()=>{
+      window.removeEventListener("mouseup", {});
+    }
+  }, []);
+  return <Wrapper >
+    <span ref={target}></span>
+  </Wrapper>;
 };
 
 export default First;

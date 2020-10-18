@@ -16,4 +16,8 @@ export default createGlobalStyle`
     input:focus{
         outline: none;
     }
+    span.highlight{
+        color: white;
+        background: rgba(0,74,39,0.4);
+    }
 `;
