@@ -25,23 +25,23 @@ const First = () => {
   useEffect(() => {
     target.current.innerHTML = text;
   }, [text]);
-  useEffect(()=>{
-    document.addEventListener("selectstart", ()=>{
-      if(window.getSelection().toString() !== ""){
+  useEffect(() => {
+    document.addEventListener("selectstart", () => {
+      if (window.getSelection().toString() !== "") {
         console.log(window.getSelection().toString());
         const highlighting = document.createElement('span');
         highlighting.classList.add("highlight");
-        try{
+        try {
           window.getSelection().getRangeAt(0).surroundContents(highlighting);
           console.log(window.getSelection().getRangeAt(0))
-        }catch(e){
+        } catch (e) {
           console.log(e);
           console.log(window.getSelection().getRangeAt(0))
         }
       }
     })
 
-    return ()=>{
+    return () => {
       window.removeEventListener("mouseup", {});
     }
   }, []);
