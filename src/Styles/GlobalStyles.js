@@ -20,4 +20,13 @@ export default createGlobalStyle`
         color: white;
         background: rgba(0,74,39,0.4);
     }
+    div.text-area{
+        word-break: keep-all;
+        border: 1px solid black;
+        padding: 1rem;
+        cursor: pointer;
+    }
+    div.select-area{
+        border: 1px solid red;
+    }
 `;

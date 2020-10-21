@@ -47,7 +47,7 @@ const Second = () => {
       setClicked(false);
     })
     return () => {
-      window.removeEventListener("mouseup");
+      window.removeEventListener("mouseup", {});
     }
   }, [])
 
