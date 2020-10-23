@@ -20,6 +20,15 @@ export default createGlobalStyle`
         color: white;
         background: rgba(0,74,39,0.4);
     }
+    span:not(.highlight){
+        opacity: 0.2;
+    }
+    span.word{
+        line-height: 2rem;
+        display: inline-block;
+        padding-right: 0.3em;
+        vertical-align: center;
+    }
     div.text-area{
         word-break: keep-all;
         border: 1px solid black;
