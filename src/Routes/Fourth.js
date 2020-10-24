@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Selection from "@simonwep/selection-js";
 import { sonagi } from "../data";
 import Word from "../Components/Word";
+import Histogram from "../Components/Histogram";
 
 const Wrapper = styled.div`
   margin: 0 auto;
@@ -18,25 +19,25 @@ const Wrapper = styled.div`
 `;
 
 const DepthInfo = styled.div`
-  width: 100vw;
+  width: 100%;
   max-width: 480px;
-  height: 100px;
+  height: 70px;
   border: 1px solid grey;
-  margin-top: 50px;
+  margin-top: 10px;
+  margin-left: 2rem;
+  margin-right: 2rem;
   display: flex;
   justify-content: space-around;
   align-items: center;
-`;
 
-const Histogram = styled.div`
-  width: 100vw;
-  max-width: 480px;
-  height: 100px;
-  border: 1px solid grey;
-  margin-top: 50px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  label {
+    display: flex;
+    align-items: center;
+  }
+  label > div {
+    text-align: center;
+    width: 50px;
+  }
 `;
 
 const Fourth = () => {
@@ -165,37 +166,46 @@ const Fourth = () => {
       </div>
       <DepthInfo>
         <div>
-          1
-          <input
-            type="radio"
-            value="1"
-            name="level"
-            onChange={handleCheck}
-            checked={level === 1}
-          />
+          <label for="level1">
+            <div>1</div>
+            <input
+              type="radio"
+              value="1"
+              name="level"
+              id="level1"
+              onChange={handleCheck}
+              checked={level === 1}
+            />
+          </label>
         </div>
         <div>
-          2
-          <input
-            type="radio"
-            value="2"
-            name="level"
-            onChange={handleCheck}
-            checked={level === 2}
-          />
+          <label for="level2">
+            <div>2</div>
+            <input
+              type="radio"
+              value="2"
+              name="level"
+              id="level2"
+              onChange={handleCheck}
+              checked={level === 2}
+            />
+          </label>
         </div>
         <div>
-          3
-          <input
-            type="radio"
-            value="3"
-            name="level"
-            onChange={handleCheck}
-            checked={level === 3}
-          />
+          <label for="level3">
+            <div>3</div>
+            <input
+              type="radio"
+              value="3"
+              name="level"
+              id="level3"
+              onChange={handleCheck}
+              checked={level === 3}
+            />
+          </label>
         </div>
       </DepthInfo>
-      <Histogram></Histogram>
+      <Histogram data={text} />
     </Wrapper>
   );
 };
