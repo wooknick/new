@@ -18,10 +18,10 @@ export default createGlobalStyle`
     }
     span.highlight{
         color: white;
-        background: rgba(0,74,39,0.4);
+        background: #B3C5BA;
     }
     span:not(.highlight){
-        opacity: 0.2;
+        /* opacity: 0.8; */
     }
     span.word{
         line-height: 2rem;
