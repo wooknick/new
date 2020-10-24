@@ -166,7 +166,7 @@ const Fourth = () => {
       </div>
       <DepthInfo>
         <div>
-          <label for="level1">
+          <label>
             <div>1</div>
             <input
               type="radio"
@@ -179,7 +179,7 @@ const Fourth = () => {
           </label>
         </div>
         <div>
-          <label for="level2">
+          <label>
             <div>2</div>
             <input
               type="radio"
@@ -192,7 +192,7 @@ const Fourth = () => {
           </label>
         </div>
         <div>
-          <label for="level3">
+          <label>
             <div>3</div>
             <input
               type="radio"
