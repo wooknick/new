@@ -18,7 +18,8 @@ export default createGlobalStyle`
     }
     span.highlight{
         color: white;
-        background: #B3C5BA;
+        /* background: #B3C5BA; */
+        background: rgba(0, 92, 67, 1);
     }
     span:not(.highlight){
         /* opacity: 0.8; */
