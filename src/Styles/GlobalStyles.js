@@ -31,7 +31,9 @@ export default createGlobalStyle`
         vertical-align: center;
     }
     div.text-area{
-        word-break: keep-all;
+        /* word-break: keep-all; */
+        height: 450px;
+        overflow: scroll;
         border: 1px solid black;
         padding: 1rem;
         cursor: pointer;

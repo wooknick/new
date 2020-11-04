@@ -4,20 +4,21 @@ import styled, { css } from "styled-components";
 const Highlight = (bgColor, size) => css`
   /* color: white; */
   /* background: ${bgColor}; */
-  opacity: 1;
+  /* opacity: 1; */
   font-size: ${size};
 `;
 
-const Normal = (bgColor, size) => css`
-  /* color: ${bgColor === "white" ? "black" : "white"}; */
-  /* background: ${bgColor}; */
-  opacity: 1;
-  font-size: ${size};
-`;
+// const Normal = (bgColor, size) => css`
+//   /* color: ${bgColor === "white" ? "black" : "white"}; */
+//   /* background: ${bgColor}; */
+//   opacity: 1;
+//   font-size: ${size};
+// `;
 
-const Previous = css`
+const Normal = css`
   color: black;
   background: none;
+  font-size: 1rem;
   /* opacity: 0.1; */
 `;
 
@@ -28,11 +29,9 @@ const Span = styled.span`
   vertical-align: center;
   transition: all 0.1s ease-in-out;
   ${(props) =>
-    props.score >= props.level
-      ? Highlight(props.highlightColor, props.highlightSize)
-      : props.score === props.level - 1
-      ? Normal(props.normalColor, props.normalSize)
-      : Previous}
+    props.score === 0
+      ? Normal
+      : Highlight(props.highlightColor, props.highlightSize)}
 `;
 
 const Word = ({ id, text, score, level }) => {
@@ -43,17 +42,14 @@ const Word = ({ id, text, score, level }) => {
     "rgba(0, 92, 67, 0.75)",
     "rgba(0, 92, 67, 1)",
   ];
-  const size = ["1rem", "1.4rem", "1.8rem", "2rem"];
+  const size = ["1rem", "1.3rem", "1.6rem", "1.9rem"];
   return (
     <Span
       id={id}
       data-score={score}
       className="word"
       score={score}
-      level={level}
       highlightColor={bgColor[score]}
-      normalColor={bgColor[level - 1]}
-      normalSize={size[level - 1]}
       highlightSize={size[score]}
     >
       {text}
