@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Selection from "@simonwep/selection-js";
-import { sonagi } from "../data";
+import { sonagi, news } from "../data";
 import Word from "../Components/WordSecond";
 import Histogram from "../Components/HistogramSecond";
 
@@ -41,7 +41,7 @@ const DepthInfo = styled.div`
 `;
 
 const Second = () => {
-  const data = sonagi;
+  const data = news;
   const [text, setText] = useState([]);
   const [mainScore, setMainScore] = useState(0);
   const [mode, setMode] = useState(1); // 0: default, 1: create, 2: delete
