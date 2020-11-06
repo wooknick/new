@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "81c67e82a0f4afdfb59c1a5bf5e3898f",
+    "revision": "aabf53934894cf6548570d45e2989e33",
     "url": "/new-digital-book/index.html"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/new-digital-book/static/js/2.42fefd4c.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "b6f80ca84cc999e8c74d",
-    "url": "/new-digital-book/static/js/main.c542b042.chunk.js"
+    "revision": "ada319e4ca64d4acc92c",
+    "url": "/new-digital-book/static/js/main.0cfbcdaa.chunk.js"
   },
   {
     "revision": "695f473fedcb180433e8",
