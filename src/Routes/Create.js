@@ -24,7 +24,7 @@ const Control = styled.div`
   border: 1px solid #d6d6d6;
   background-color: rgba(255, 255, 255, 1);
   position: fixed;
-  bottom: 300px;
+  bottom: 200px;
   right: 50px;
   display: flex;
   flex-direction: column;
