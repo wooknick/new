@@ -23,7 +23,7 @@ const Control = styled.div`
   border: 1px solid #d6d6d6;
   background-color: rgba(255, 255, 255, 1);
   position: fixed;
-  bottom: 100px;
+  bottom: 300px;
   right: 50px;
   display: flex;
   flex-direction: column;

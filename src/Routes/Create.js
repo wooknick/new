@@ -20,11 +20,11 @@ const Wrapper = styled.div`
 
 const Control = styled.div`
   width: 200px;
-  height: 250px;
+  height: 150px;
   border: 1px solid #d6d6d6;
   background-color: rgba(255, 255, 255, 1);
   position: fixed;
-  bottom: 100px;
+  bottom: 300px;
   right: 50px;
   display: flex;
   flex-direction: column;
@@ -48,6 +48,11 @@ const Button = styled.div`
   font-size: 0.9rem;
   &:hover {
     cursor: pointer;
+  }
+  &:active {
+    border-radius: 0px;
+    background: #ffffff;
+    box-shadow: inset 5px 5px 10px #e6e6e6, inset -5px -5px 10px #ffffff;
   }
 `;
 const Create = () => {
@@ -179,9 +184,6 @@ const Create = () => {
   };
 
   const handleSave = (e) => {
-    console.log("saved");
-    e.target.classList.remove("not-applied");
-    e.target.classList.add("applied");
     localStorage.setItem("prehighlight", JSON.stringify(text));
   };
 
