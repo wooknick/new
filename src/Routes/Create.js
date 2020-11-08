@@ -2,15 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Selection from "@simonwep/selection-js";
 import { sonagi, news } from "../data";
-import Word from "../Components/WordSecond";
-import Histogram from "../Components/HistogramSecond";
+import Word from "../Components/Word";
+import Draggable from "react-draggable";
+import Histogram from "../Components/Histogram";
 
 const Wrapper = styled.div`
   margin: 0 auto;
-  width: 100vw;
-  max-width: 480px;
+  width: 100%;
   min-height: 80vh;
-  padding: 0 0rem;
+  padding: 0 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -18,32 +18,43 @@ const Wrapper = styled.div`
   line-height: 2rem;
 `;
 
-const DepthInfo = styled.div`
-  width: 100%;
-  max-width: 480px;
-  height: 70px;
-  border: 1px solid grey;
-  margin-top: 10px;
-  margin-left: 2rem;
-  margin-right: 2rem;
+const Control = styled.div`
+  width: 200px;
+  height: 250px;
+  border: 1px solid #d6d6d6;
+  background-color: rgba(255, 255, 255, 1);
+  position: fixed;
+  bottom: 100px;
+  right: 50px;
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-
-  label {
-    display: flex;
-    align-items: center;
-  }
-  label > div {
-    text-align: center;
-    width: 50px;
+  border-radius: 0px;
+  background: #ffffff;
+  box-shadow: 5px 5px 10px #e6e6e6, -5px -5px 10px #ffffff;
+  div.title:hover {
+    cursor: default;
   }
 `;
 
-const Second = () => {
+const Button = styled.div`
+  width: 80%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+const Create = () => {
   const data = news;
   const [text, setText] = useState([]);
   const [mainScore, setMainScore] = useState(0);
+  const [funcOn, setFuncOn] = useState(false);
   const [mode, setMode] = useState(1); // 0: default, 1: create, 2: delete
   const target = useRef();
   const selection = useRef();
@@ -71,7 +82,7 @@ const Second = () => {
     selection.current = new Selection({
       class: "select-area",
       frame: document,
-      startThreshold: 5,
+      startThreshold: 10,
       disableTouch: false,
       mode: "touch",
       tapMode: "native",
@@ -80,35 +91,35 @@ const Second = () => {
       startareas: ["html"],
       boundaries: ["div.text-area"],
       selectionAreaContainer: "body",
-      scrollSpeedDivider: 10,
+      scrollSpeedDivider: 100,
       manualScrollSpeed: 750,
     });
   }, []);
 
   useEffect(() => {
     const isForbidden =
-      mode === 0 || // 노말모드이거나
       (mode === 1 && mainScore === MAX_SCORE) || // 추가모드인데 이미 맥스스코어이거나
       (mode === 2 && mainScore === 0) // 삭제모드인데 제로 스코어거나
         ? true
         : false;
 
-    const handleBeforeStart = ({ inst, oe: { target } }) => {
+    const handleBeforeStart = ({ inst, selected, oe: { target } }) => {
+      for (const el of selected) {
+        el.classList.remove("selected");
+        inst.removeFromSelection(el);
+      }
       if (target.dataset["score"] !== undefined) {
-        console.log(Number(target.dataset["score"]));
         setMainScore(Number(target.dataset["score"]));
       }
     };
-    const handleStart = ({ inst }) => {
-      if (isForbidden) {
-        return;
+    const handleStart = ({ inst, selected }) => {
+      for (const el of selected) {
+        el.classList.remove("selected");
+        inst.removeFromSelection(el);
       }
       inst.clearSelection();
     };
     const handleMove = ({ changed: { removed, added } }) => {
-      if (isForbidden) {
-        return;
-      }
       for (const el of added) {
         const elScore = Number(el.dataset.score);
         if (elScore === mainScore) {
@@ -119,30 +130,22 @@ const Second = () => {
         el.classList.remove("highlight");
       }
     };
-    const handleStop = (evt) => {
-      if (isForbidden) {
-        return;
-      }
-      const { inst, selected } = evt;
-      console.log("stop&selected", selected);
+
+    const handleStop = ({ selected, oe: { ctrlKey, metaKey, altKey } }) => {
       const nextText = text;
       for (const el of selected) {
         const elScore = Number(el.dataset.score);
-        if (mode === 1) {
+        if (ctrlKey || metaKey) {
           if (elScore === mainScore && elScore < MAX_SCORE) {
             nextText[el.id][1] = mainScore + 1;
           }
-        } else if (mode === 2) {
-          console.log("delete");
+        } else if (altKey) {
           if (elScore === mainScore && elScore > 0) {
             nextText[el.id][1] = mainScore - 1;
           }
         }
+        el.classList.remove("highlight");
       }
-      // selection.current.keepSelection();
-      // inst.clearSelection();
-      // console.log(inst.getSelection());
-      // selection.current.destroy();
       setText([...nextText]);
     };
 
@@ -157,7 +160,7 @@ const Second = () => {
       selection.current.off("move", handleMove);
       selection.current.off("stop", handleStop);
     };
-  }, [mainScore, mode, text]);
+  }, [funcOn, mainScore, mode, text]);
 
   useEffect(() => {
     if (mode === 0) {
@@ -168,65 +171,68 @@ const Second = () => {
   }, [mode]);
 
   const handleMode = (e) => {
-    setMode(Number(e.target.value));
+    setMode(Number(e.target.dataset.value));
+  };
+
+  const handleFuncOnOff = (e) => {
+    setFuncOn((v) => !v);
+  };
+
+  const handleSave = (e) => {
+    console.log("saved");
+    e.target.classList.remove("not-applied");
+    e.target.classList.add("applied");
+    localStorage.setItem("prehighlight", JSON.stringify(text));
   };
 
   return (
     <Wrapper>
       <div ref={target} className="text-area">
-        {text.map((item, idx) => {
-          if (item[0] === "<br/>") {
-            return <br key={idx} />;
-          } else {
-            return <Word key={idx} id={idx} text={item[0]} score={item[1]} />;
-          }
-        })}
+        <div className="text-wrapper">
+          {text.map((item, idx) => {
+            if (item[0] === "<br/>") {
+              return <br key={idx} />;
+            } else {
+              return <Word key={idx} id={idx} text={item[0]} score={item[1]} />;
+            }
+          })}
+        </div>
       </div>
-      <DepthInfo>
-        <div>
-          <label>
-            <div>Normal</div>
-            <input
-              type="radio"
-              value={0}
-              name="mode"
-              id="modeNormal"
-              onChange={handleMode}
-              checked={mode === 0}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            <div>Create</div>
-            <input
-              type="radio"
-              value={1}
-              name="mode"
-              id="modeCreate"
-              onChange={handleMode}
-              checked={mode === 1}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            <div>Delete</div>
-            <input
-              type="radio"
-              value={2}
-              name="mode"
-              id="modeDelete"
-              onChange={handleMode}
-              checked={mode === 2}
-            />
-          </label>
-        </div>
-      </DepthInfo>
+      <Draggable bounds="body">
+        <Control className="box">
+          <div className="title">하이라이트</div>
+          <Button className="not-applied" onClick={handleSave}>
+            저장
+          </Button>
+          {/* <Button
+            className={funcOn ? "applied" : "not-applied"}
+            onClick={handleFuncOnOff}
+            onTouchEnd={handleFuncOnOff}
+          >
+            {funcOn ? "켜짐" : "꺼짐"}
+          </Button>
+          <Button
+            data-value={1}
+            className={funcOn && mode === 1 ? "applied" : "not-applied"}
+            onClick={handleMode}
+            onTouchEnd={handleMode}
+          >
+            단계 업
+          </Button>
+          <Button
+            data-value={2}
+            className={funcOn && mode === 2 ? "applied" : "not-applied"}
+            onClick={handleMode}
+            onTouchEnd={handleMode}
+          >
+            단계 다운
+          </Button>
 
-      <Histogram data={text} />
+          <Histogram data={text} /> */}
+        </Control>
+      </Draggable>
     </Wrapper>
   );
 };
 
-export default Second;
+export default Create;

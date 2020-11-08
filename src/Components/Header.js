@@ -8,7 +8,7 @@ const Header = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid #808080;
+  border-bottom: 1px solid #d6d6d6;
   z-index: 2;
 `;
 
@@ -36,12 +36,33 @@ const HeaderColumn = styled.div`
   }
 `;
 
+const Span = styled.span`
+  font-size: 1.1em;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 export default withRouter(({ history }) => {
+  const whereAmI = history.location.pathname;
+  const toggleMenu = () => {
+    if (whereAmI === "/read") {
+      history.push("/create");
+    } else {
+      history.push("/read");
+    }
+  };
   return (
     <Header>
       <HeaderWrapper>
         <HeaderColumn></HeaderColumn>
-        <HeaderColumn>New Digital Book</HeaderColumn>
+        <HeaderColumn>
+          하이라이트{" "}
+          <Span onClick={toggleMenu}>
+            {whereAmI === "/read" ? "리딩" : "생성"}
+          </Span>{" "}
+          프로토타입
+        </HeaderColumn>
         <HeaderColumn></HeaderColumn>
       </HeaderWrapper>
     </Header>

@@ -6,9 +6,15 @@ export default createGlobalStyle`
     *{
         box-sizing: border-box;
     }
+    html{
+        font-size: 21px;
+        font-family: 'Nanum Myeongjo', serif;
+        width: 100%;
+    }
     body{
-        font-size: 16px;
         font-weight: 300;
+        width: 100%;
+        min-height: 100vh;
     }
     a{
         text-decoration: none;
@@ -21,9 +27,6 @@ export default createGlobalStyle`
         /* background: #B3C5BA; */
         background: rgba(0, 92, 67, 1);
     }
-    span:not(.highlight){
-        /* opacity: 0.8; */
-    }
     span.word{
         line-height: 2rem;
         display: inline-block;
@@ -31,14 +34,32 @@ export default createGlobalStyle`
         vertical-align: center;
     }
     div.text-area{
-        /* word-break: keep-all; */
-        height: 450px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    div.text-wrapper{
+        width: 100%;
+        height: 100%;
         overflow: scroll;
-        border: 1px solid black;
+        max-width: 740px;
         padding: 1rem;
         cursor: pointer;
+        &::-webkit-scrollbar {
+            display: none;
+            }
     }
     div.select-area{
         border: 1px solid red;
+    }
+    .not-applied{
+        border-radius: 0px;
+        background: #ffffff;
+        box-shadow: 5px 5px 10px #e6e6e6, -5px -5px 10px #ffffff;
+    }
+    .applied{
+        border-radius: 0px;
+        background: #ffffff;
+        box-shadow: inset 5px 5px 10px #e6e6e6, inset -5px -5px 10px #ffffff;
     }
 `;

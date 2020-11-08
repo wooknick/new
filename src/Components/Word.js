@@ -1,25 +1,25 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-const Highlight = css`
-  color: white;
-  background: #b3c5ba;
-  opacity: 1;
-  transition: all 0.2s linear;
+const Highlight = (bgColor, size) => css`
+  /* color: white; */
+  background: ${bgColor};
+  /* opacity: 1; */
+  font-size: ${size};
 `;
 
 const Normal = css`
   color: black;
   background: none;
-  opacity: 1;
-  transition: all 0.2s linear;
+  font-size: 1rem;
+  /* opacity: 0.1; */
 `;
 
-const Previous = css`
+const NotFocus = css`
   color: black;
   background: none;
+  font-size: 1rem;
   opacity: 0.2;
-  transition: all 0.2s linear;
 `;
 
 const Span = styled.span`
@@ -27,22 +27,35 @@ const Span = styled.span`
   display: inline-block;
   padding-right: 0.3em;
   vertical-align: center;
+  transition: all 0.1s ease-in-out;
   ${(props) =>
-    props.score >= props.level
-      ? `${Highlight}`
-      : props.score === props.level - 1
-      ? `${Normal}`
-      : `${Previous}`}
+    props.score === 0
+      ? Normal
+      : Highlight(props.highlightColor, props.highlightSize)}
+  ${(props) => (props.focusOn && props.score < props.showLevel ? NotFocus : "")}
 `;
 
-const Word = ({ id, text, score, level }) => {
+const Word = ({ id, text, score, showLevel, focusOn }) => {
+  const bgColor = [
+    "white",
+    "rgba(250, 255, 110, 0.5)",
+    "rgba(250, 255, 110, 0.75)",
+    "rgba(250, 255, 110, 1)",
+  ];
+  const size = ["1rem", "1.2rem", "1.4rem", "1.6rem"];
+  const tScore =
+    showLevel !== undefined && showLevel < score ? showLevel : score;
   return (
     <Span
       id={id}
       data-score={score}
+      data-showlevel={showLevel}
       className="word"
-      score={score}
-      level={level}
+      score={tScore}
+      highlightColor={bgColor[tScore]}
+      highlightSize={size[tScore]}
+      focusOn={focusOn}
+      showLevel={showLevel}
     >
       {text}
     </Span>
