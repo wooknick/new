@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/new-digital-book/static/js/main.95640ff6.chunk.js",
-    "main.js.map": "/new-digital-book/static/js/main.95640ff6.chunk.js.map",
+    "main.js": "/new-digital-book/static/js/main.f49517ec.chunk.js",
+    "main.js.map": "/new-digital-book/static/js/main.f49517ec.chunk.js.map",
     "runtime-main.js": "/new-digital-book/static/js/runtime-main.19f1e154.js",
     "runtime-main.js.map": "/new-digital-book/static/js/runtime-main.19f1e154.js.map",
-    "static/js/2.fded4f36.chunk.js": "/new-digital-book/static/js/2.fded4f36.chunk.js",
-    "static/js/2.fded4f36.chunk.js.map": "/new-digital-book/static/js/2.fded4f36.chunk.js.map",
+    "static/js/2.b7b8055c.chunk.js": "/new-digital-book/static/js/2.b7b8055c.chunk.js",
+    "static/js/2.b7b8055c.chunk.js.map": "/new-digital-book/static/js/2.b7b8055c.chunk.js.map",
     "index.html": "/new-digital-book/index.html",
-    "precache-manifest.0f6d58cd3d8c6049ff03bfe9dc85e0aa.js": "/new-digital-book/precache-manifest.0f6d58cd3d8c6049ff03bfe9dc85e0aa.js",
+    "precache-manifest.e03d360448b2c2cfaee2b761b0c14a1a.js": "/new-digital-book/precache-manifest.e03d360448b2c2cfaee2b761b0c14a1a.js",
     "service-worker.js": "/new-digital-book/service-worker.js",
-    "static/js/2.fded4f36.chunk.js.LICENSE.txt": "/new-digital-book/static/js/2.fded4f36.chunk.js.LICENSE.txt"
+    "static/js/2.b7b8055c.chunk.js.LICENSE.txt": "/new-digital-book/static/js/2.b7b8055c.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.19f1e154.js",
-    "static/js/2.fded4f36.chunk.js",
-    "static/js/main.95640ff6.chunk.js"
+    "static/js/2.b7b8055c.chunk.js",
+    "static/js/main.f49517ec.chunk.js"
   ]
 }
