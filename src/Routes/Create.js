@@ -75,11 +75,11 @@ const Create = () => {
   useEffect(() => {
     if (selection.current) {
       selection.current.clearSelection();
-      const selected = document.querySelectorAll(
-        `.word[data-score='${mainScore}']`
-      );
-      selection.current.select([...selected]);
-      selection.current.keepSelection();
+      // const selected = document.querySelectorAll(
+      //   `.word[data-score='${mainScore}']`
+      // );
+      // selection.current.select([...selected]);
+      // selection.current.keepSelection();
     }
   }, [mainScore]);
 
