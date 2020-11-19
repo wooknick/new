@@ -69,6 +69,7 @@ const Create = () => {
     // init
     let idx = 0;
     const newText = data[idx].split(/\s/g).map((item, idx) => [item, 0]);
+    console.log(newText);
     setText(newText);
   }, [data]);
 
@@ -124,7 +125,7 @@ const Create = () => {
       }
       inst.clearSelection();
     };
-    const handleMove = ({ changed: { removed, added } }) => {
+    const handleMove = ({ inst, selected, changed: { removed, added } }) => {
       for (const el of added) {
         const elScore = Number(el.dataset.score);
         if (elScore === mainScore) {
@@ -134,19 +135,37 @@ const Create = () => {
       for (const el of removed) {
         el.classList.remove("highlight");
       }
+      if (removed.length + added.length) {
+        const allEl = document.querySelectorAll(".word");
+        const from = Number(selected[0].id);
+        const to = Number(selected[selected.length - 1].id);
+        const target = Array.from(allEl).slice(from, to < 0 ? from : to + 1);
+        console.log(target);
+        for (const el of allEl) {
+          el.classList.remove("highlight");
+        }
+        for (const el of target) {
+          el.classList.add("highlight");
+        }
+      }
     };
 
-    const handleStop = ({ selected, oe: { ctrlKey, metaKey, altKey } }) => {
+    const handleStop = ({
+      inst,
+      selected,
+      oe: { ctrlKey, metaKey, altKey },
+    }) => {
       const nextText = text;
-      for (const el of selected) {
+      const highlighted = document.querySelectorAll("span.highlight");
+      for (const el of highlighted) {
         const elScore = Number(el.dataset.score);
         if (ctrlKey || metaKey) {
-          if (elScore === mainScore && elScore < MAX_SCORE) {
-            nextText[el.id][1] = mainScore + 1;
+          if (elScore < MAX_SCORE) {
+            nextText[el.id][1] = nextText[el.id][1] + 1;
           }
         } else if (altKey) {
-          if (elScore === mainScore && elScore > 0) {
-            nextText[el.id][1] = mainScore - 1;
+          if (elScore > 0) {
+            nextText[el.id][1] = nextText[el.id][1] - 1;
           }
         }
         el.classList.remove("highlight");
@@ -165,15 +184,7 @@ const Create = () => {
       selection.current.off("move", handleMove);
       selection.current.off("stop", handleStop);
     };
-  }, [funcOn, mainScore, mode, text]);
-
-  useEffect(() => {
-    if (mode === 0) {
-      selection.current.disable();
-    } else {
-      selection.current.enable();
-    }
-  }, [mode]);
+  });
 
   const handleMode = (e) => {
     setMode(Number(e.target.dataset.value));
@@ -193,7 +204,7 @@ const Create = () => {
         <div className="text-wrapper">
           {text.map((item, idx) => {
             if (item[0] === "<br/>") {
-              return <br key={idx} />;
+              return <br key={idx} id={idx} className="word" />;
             } else {
               return <Word key={idx} id={idx} text={item[0]} score={item[1]} />;
             }

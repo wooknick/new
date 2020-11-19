@@ -38,8 +38,8 @@ const Span = styled.span`
 const Word = ({ id, text, score, showLevel, focusOn }) => {
   const bgColor = [
     "white",
-    "rgba(250, 255, 110, 0.5)",
-    "rgba(250, 255, 110, 0.75)",
+    "rgba(250, 255, 110, 0.3)",
+    "rgba(250, 255, 110, 0.6)",
     "rgba(250, 255, 110, 1)",
   ];
   const size = ["1rem", "1.2rem", "1.4rem", "1.6rem"];
