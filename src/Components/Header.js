@@ -47,11 +47,11 @@ const Span = styled.span`
 `;
 
 const PopUp = styled.div`
-  width: 600px;
+  width: 800px;
   height: 320px;
   position: fixed;
   top: 4rem;
-  right: 2rem;
+  margin: 0 auto;
   border: 1px solid #d8d8d8;
   background-color: white;
   display: flex;
@@ -112,25 +112,34 @@ export default withRouter(({ history }) => {
       </HeaderWrapper>
       {whereAmI !== "/read" && popupOpen && (
         <PopUp>
-          <div>[ 효율적인 요약을 위한 기본 사용법 ]</div>
+          <div>[ 시스템 사용법 ]</div>
           <div>0. 본 시스템의 기본 단위는 어절 단위입니다.</div>
           <div>
-            1. 중요하다고 생각되는 내용을 선택하세요. <br />
-            선택된 내용은 자동으로 하이라이트가 적용됩니다.
+            1. 중요하다고 생각되는 내용을 선택하세요. 선택된 내용은 자동으로
+            하이라이트가 적용됩니다.
           </div>
           <div>
             2. 더 중요하다고 생각되는 내용은 한 번 더 선택하세요. 하이라이트가
-            중첩되어 더욱 강하게 나타납니다. 중첩은 최대 세 번 까지 가능합니다.
+            중첩되어 더욱 강하게 나타납니다. <br />
+          </div>
+          <div>( 중첩은 최대 세 번 까지 가능합니다. )</div>
+          <div>
+            3. 원본을 얼만큼 압축해서 요약하고 싶나요? 목표 게이지를 직접
+            드래그하여 목표를 설정하세요.
           </div>
           <div>
-            3. 원본을 얼만큼 압축하고 싶나요? 목표 게이지를 직접 드래그하여
-            목표를 설정하세요.
+            4. 선택된 내용을 본인만의 언어로 다시 정리하여 쓸 필요는 없습니다.
+            지금 보이는 구조가 곧 요약의 결과물이니까요.
           </div>
-          <div>4. 중요하다고 생각되는 내용을 선택하여 요약을 진행하세요.</div>
           <br />
           <div>[ 조작법 ]</div>
-          <div>컨트롤 키 + 드래그 : 하이라이트 추가</div>
-          <div>알트 + 드래그 : 하이라이트 삭제</div>
+          <div>
+            어절 선택하기 : 컨트롤(Windows) 키 + 드래그 / 커맨드(MAC OS) 키 +
+            드래그
+          </div>
+          <div>
+            어절 제외하기 : 알트(Windows) 키 + 드래그 / 옵션(MAC OS) 키 + 드래그
+          </div>
           <div className="exit" onClick={popupToggle}>
             X
           </div>
