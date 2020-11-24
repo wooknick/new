@@ -50,7 +50,7 @@ export default createGlobalStyle`
             }
     }
     div.select-area{
-        border: 1px solid red;
+        /* border: 1px solid red; */
     }
     .not-applied{
         border-radius: 0px;

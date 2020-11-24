@@ -61,6 +61,22 @@ const PopUp = styled.div`
   line-height: 180%;
   padding-left: 1rem;
   box-shadow: 5px 5px 10px #e6e6e6, -5px -5px 10px #ffffff;
+  z-index: 10;
+  div.exit {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border-right: 1px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
+    &:hover {
+      cursor: pointer;
+    }
+  }
 `;
 
 export default withRouter(({ history }) => {
@@ -84,7 +100,7 @@ export default withRouter(({ history }) => {
       <HeaderWrapper>
         <HeaderColumn></HeaderColumn>
         <HeaderColumn>
-          하이라이트{" "}
+          텍스트 요약{" "}
           <Span onClick={toggleMenu}>
             {whereAmI === "/read" ? "리딩" : "생성"}
           </Span>{" "}
@@ -96,25 +112,28 @@ export default withRouter(({ history }) => {
       </HeaderWrapper>
       {whereAmI !== "/read" && popupOpen && (
         <PopUp>
-          <div>[ 기본 사용법 ]</div>
-          <div>0. 하이라이트는 어절 단위로 구분됩니다.</div>
+          <div>[ 효율적인 요약을 위한 기본 사용법 ]</div>
+          <div>0. 본 시스템의 기본 단위는 어절 단위입니다.</div>
           <div>
-            1. 키보드와 마우스 조작을 통해 하이라이트를 추가 및 삭제할 수
-            있습니다.
+            1. 중요하다고 생각되는 내용을 선택하세요. <br />
+            선택된 내용은 자동으로 하이라이트가 적용됩니다.
           </div>
           <div>
-            2. 이미 하이라이트 된 텍스트에서 드래그를 시작하면 하이라이트가
-            중첩됩니다.
+            2. 더 중요하다고 생각되는 내용은 한 번 더 선택하세요. 하이라이트가
+            중첩되어 더욱 강하게 나타납니다. 중첩은 최대 세 번 까지 가능합니다.
           </div>
-          <div>3. 하이라이트 중첩은 최대 세 번까지 가능합니다.</div>
           <div>
-            4. 드래그를 시작한 텍스트와 같은 중첩단계의 텍스트들만 범위에
-            포함시킬 수 있습니다.
+            3. 원본을 얼만큼 압축하고 싶나요? 목표 게이지를 직접 드래그하여
+            목표를 설정하세요.
           </div>
+          <div>4. 중요하다고 생각되는 내용을 선택하여 요약을 진행하세요.</div>
           <br />
           <div>[ 조작법 ]</div>
-          <div>컨트롤 키(커맨드) + 드래그 : 하이라이트 추가</div>
-          <div>알트(옵션) + 드래그 : 하이라이트 삭제</div>
+          <div>컨트롤 키 + 드래그 : 하이라이트 추가</div>
+          <div>알트 + 드래그 : 하이라이트 삭제</div>
+          <div className="exit" onClick={popupToggle}>
+            X
+          </div>
         </PopUp>
       )}
     </Header>

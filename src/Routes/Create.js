@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Selection from "@simonwep/selection-js";
-import { sonagi, news } from "../data";
-import Word from "../Components/Word";
 import Draggable from "react-draggable";
+import Word from "../Components/Word";
+import Compress from "../Components/Compress";
 import Histogram from "../Components/Histogram";
+import { sonagi, news } from "../data";
 
 const Wrapper = styled.div`
   margin: 0 auto;
@@ -24,7 +25,27 @@ const Control = styled.div`
   border: 1px solid #d6d6d6;
   background-color: rgba(255, 255, 255, 1);
   position: fixed;
-  bottom: 200px;
+  bottom: 150px;
+  right: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0px;
+  background: #ffffff;
+  box-shadow: 5px 5px 10px #e6e6e6, -5px -5px 10px #ffffff;
+  div.title:hover {
+    cursor: default;
+  }
+`;
+
+const CompressWrapper = styled.div`
+  width: 130px;
+  height: 500px;
+  border: 1px solid #d6d6d6;
+  background-color: rgba(255, 255, 255, 1);
+  position: fixed;
+  top: 100px;
   right: 50px;
   display: flex;
   flex-direction: column;
@@ -61,6 +82,8 @@ const Create = () => {
   const [mainScore, setMainScore] = useState(0);
   const [funcOn, setFuncOn] = useState(false);
   const [mode, setMode] = useState(1); // 0: default, 1: create, 2: delete
+  const [start, setStart] = useState(-1);
+  const [usage, setUsage] = useState([0, 0, 0]);
   const target = useRef();
   const selection = useRef();
   const MAX_SCORE = 3;
@@ -69,7 +92,6 @@ const Create = () => {
     // init
     let idx = 0;
     const newText = data[idx].split(/\s/g).map((item, idx) => [item, 0]);
-    console.log(newText);
     setText(newText);
   }, [data]);
 
@@ -110,6 +132,7 @@ const Create = () => {
         : false;
 
     const handleBeforeStart = ({ inst, selected, oe: { target } }) => {
+      setStart(Number(target.id));
       for (const el of selected) {
         el.classList.remove("selected");
         inst.removeFromSelection(el);
@@ -125,7 +148,11 @@ const Create = () => {
       }
       inst.clearSelection();
     };
-    const handleMove = ({ inst, selected, changed: { removed, added } }) => {
+    const handleMove = ({
+      selected,
+      changed: { removed, added },
+      oe: { target: tg },
+    }) => {
       for (const el of added) {
         const elScore = Number(el.dataset.score);
         if (elScore === mainScore) {
@@ -137,10 +164,17 @@ const Create = () => {
       }
       if (removed.length + added.length) {
         const allEl = document.querySelectorAll(".word");
-        const from = Number(selected[0].id);
-        const to = Number(selected[selected.length - 1].id);
+        let from = Number(selected[0].id);
+        let to = Number(selected[selected.length - 1].id);
+        const end = tg.classList.contains("word") ? Number(tg.id) : from;
+        if (end < start && from !== end) {
+          from = end;
+          to = start;
+        } else if (start < end && from !== start) {
+          from = start;
+          to = end;
+        }
         const target = Array.from(allEl).slice(from, to < 0 ? from : to + 1);
-        console.log(target);
         for (const el of allEl) {
           el.classList.remove("highlight");
         }
@@ -150,11 +184,7 @@ const Create = () => {
       }
     };
 
-    const handleStop = ({
-      inst,
-      selected,
-      oe: { ctrlKey, metaKey, altKey },
-    }) => {
+    const handleStop = ({ oe: { ctrlKey, metaKey, altKey } }) => {
       const nextText = text;
       const highlighted = document.querySelectorAll("span.highlight");
       for (const el of highlighted) {
@@ -186,9 +216,17 @@ const Create = () => {
     };
   });
 
-  const handleMode = (e) => {
-    setMode(Number(e.target.dataset.value));
-  };
+  useEffect(() => {
+    if (text.length > 0) {
+      const first = text.filter((item) => item[1] >= 1);
+      const second = text.filter((item) => item[1] >= 2);
+      const third = text.filter((item) => item[1] >= 3);
+      const fDelta = Math.floor((first.length / text.length) * 100);
+      const sDelta = Math.floor((second.length / text.length) * 100);
+      const tDelta = Math.floor((third.length / text.length) * 100);
+      setUsage([fDelta, sDelta, tDelta]);
+    }
+  }, [text]);
 
   const handleFuncOnOff = (e) => {
     setFuncOn((v) => !v);
@@ -243,6 +281,11 @@ const Create = () => {
 
           <Histogram data={text} /> */}
         </Control>
+      </Draggable>
+      <Draggable handle="strong" bounds="body">
+        <CompressWrapper className="box no-cursor">
+          <Compress data={usage} />
+        </CompressWrapper>
       </Draggable>
     </Wrapper>
   );
