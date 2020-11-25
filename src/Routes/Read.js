@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import Selection from "@simonwep/selection-js";
-import { sonagi, news } from "../data";
+import { news } from "../data";
 import Word from "../Components/Word";
 import Draggable from "react-draggable";
+import Histogram from "../Components/Histogram";
 
 const Wrapper = styled.div`
   margin: 0 auto;
@@ -19,11 +19,11 @@ const Wrapper = styled.div`
 
 const Control = styled.div`
   width: 200px;
-  height: 300px;
+  height: 380px;
   border: 1px solid #d6d6d6;
   background-color: rgba(255, 255, 255, 1);
   position: fixed;
-  bottom: 200px;
+  bottom: 100px;
   right: 50px;
   display: flex;
   flex-direction: column;
@@ -32,8 +32,29 @@ const Control = styled.div`
   border-radius: 0px;
   background: #ffffff;
   box-shadow: 5px 5px 10px #e6e6e6, -5px -5px 10px #ffffff;
+  &:hover {
+    cursor: move;
+  }
+`;
+
+const HistogramWrapper = styled.div`
+  width: 400px;
+  height: 150px;
+  border: 1px solid #d6d6d6;
+  background-color: rgba(255, 255, 255, 1);
+  position: fixed;
+  top: 100px;
+  right: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0px;
+  background: #ffffff;
+  box-shadow: 5px 5px 10px #e6e6e6, -5px -5px 10px #ffffff;
+  user-select: none;
   div.title:hover {
-    cursor: default;
+    cursor: move;
   }
 `;
 
@@ -44,27 +65,7 @@ const Button = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 10px;
-  font-size: 0.9rem;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const MiniButtonWrapper = styled.div`
-  width: 80%;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-`;
-
-const MiniButton = styled.div`
-  width: 47%;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 10px;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   &:hover {
     cursor: pointer;
   }
@@ -75,14 +76,10 @@ const DUMMY_TEXT = `[["미국",0],["대통령",0],["선거",0],["결과",0],["�
 const Third = () => {
   const data = news;
   const [text, setText] = useState([]);
-  const [mainScore, setMainScore] = useState(0);
   const [funcOn, setFuncOn] = useState(true);
   const [focusOn, setFocusOn] = useState(false);
-  const [mode, setMode] = useState(-1); // 보여줄 score를 의미. -1일 경우는 아직 사용 안함
-  const [tMode, setTMode] = useState(-1);
+  const [mode, setMode] = useState(0); // 보여줄 score를 의미. -1일 경우는 아직 사용 안함
   const target = useRef();
-  const selection = useRef();
-  const MAX_SCORE = 3;
 
   useEffect(() => {
     // init
@@ -93,111 +90,14 @@ const Third = () => {
     } else {
       preHighlight = JSON.parse(DUMMY_TEXT);
     }
-    // let idx = 0;
-    // const newText = data[idx].split(/\s/g).map((item, idx) => {
-    //   if (preHighlight.includes(idx)) {
-    //     return [item, 1, true];
-    //   } else {
-    //     return [item, 0, true];
-    //   }
-    // });
     setText(preHighlight.map((item) => [...item, 0]));
   }, [data]);
-
-  // useEffect(() => {
-  //   if (selection.current) {
-  //     selection.current.clearSelection();
-  //     const selected = document.querySelectorAll(
-  //       `.word[data-score='${mainScore}']`
-  //     );
-  //     selection.current.select([...selected]);
-  //     selection.current.keepSelection();
-  //   }
-  // }, [mainScore]);
-
-  useEffect(() => {
-    selection.current = new Selection({
-      class: "select-area",
-      frame: document,
-      startThreshold: 5,
-      disableTouch: false,
-      mode: "touch",
-      tapMode: "native",
-      singleClick: true,
-      selectables: ["span.word"],
-      startareas: ["html"],
-      boundaries: ["div.text-area"],
-      selectionAreaContainer: "body",
-      scrollSpeedDivider: 10,
-      manualScrollSpeed: 750,
-    });
-  }, []);
-
-  useEffect(() => {
-    const handleBeforeStart = ({ inst, oe: { target } }) => {
-      if (target.dataset["score"] !== undefined) {
-        setMainScore(Number(target.dataset["score"]));
-      }
-    };
-    const handleStart = ({ inst }) => {
-      inst.clearSelection();
-    };
-    const handleMove = ({ changed: { removed, added } }) => {
-      // for (const el of added) {
-      //   el.classList.add("highlight");
-      // }
-      // for (const el of removed) {
-      //   el.classList.remove("highlight");
-      // }
-    };
-    const handleStop = (evt) => {
-      if (!funcOn) {
-        return;
-      }
-      const { selected } = evt;
-      const nextText = text;
-      for (const el of selected) {
-        const elScore = Number(el.dataset.score);
-        const elShowLevel = Number(el.dataset.showlevel);
-        if (elShowLevel < MAX_SCORE && elScore !== 0) {
-          nextText[el.id][2] = elShowLevel + 1;
-        }
-      }
-      setText([...nextText]);
-    };
-
-    selection.current.on("beforestart", handleBeforeStart);
-    selection.current.on("start", handleStart);
-    selection.current.on("move", handleMove);
-    selection.current.on("stop", handleStop);
-
-    return () => {
-      selection.current.off("beforestart", handleBeforeStart);
-      selection.current.off("start", handleStart);
-      selection.current.off("move", handleMove);
-      selection.current.off("stop", handleStop);
-    };
-  }, [funcOn, text]);
 
   const handleMode = (e) => {
     if (funcOn) {
       const eMode = Number(e.target.dataset.value);
-      if (eMode === mode) {
-        setMode(-1);
-      } else {
-        setMode(eMode);
-      }
+      setMode(eMode);
     }
-  };
-
-  const handleFuncOnOff = (e) => {
-    if (funcOn) {
-      setTMode(mode);
-      setMode(-1);
-    } else {
-      setMode(tMode);
-    }
-    setFuncOn((v) => !v);
   };
 
   const handleFocusOnOff = (e) => {
@@ -210,6 +110,22 @@ const Third = () => {
     localStorage.setItem("prehighlight", DUMMY_TEXT);
     const preHighlight = JSON.parse(DUMMY_TEXT);
     setText(preHighlight.map((item) => [...item, 0]));
+  };
+
+  const focusWord = (idx) => {
+    const element = document.getElementById(idx);
+    const customOffset = 250;
+    const elementPosition = element.getBoundingClientRect().top;
+
+    window.scrollTo({
+      top: window.pageYOffset + elementPosition - customOffset,
+      behavior: "smooth",
+    });
+
+    element.classList.add("focus-word");
+    element.onanimationend = (e) => {
+      e.target.classList.remove("focus-word");
+    };
   };
   return (
     <Wrapper>
@@ -225,7 +141,7 @@ const Third = () => {
                   id={idx}
                   text={item[0]}
                   score={item[1]}
-                  showLevel={mode > -1 ? mode : item[2] * funcOn}
+                  showLevel={mode}
                   focusOn={focusOn}
                 />
               );
@@ -236,52 +152,53 @@ const Third = () => {
       <Draggable bounds="body">
         <Control className="box">
           <div className="title" onDoubleClick={getDummyText}>
-            하이라이트
+            중첩 단계별 보기
           </div>
           <Button
-            className={funcOn ? "applied" : "not-applied"}
-            onClick={handleFuncOnOff}
+            data-value={3}
+            className={funcOn && mode === 3 ? "applied" : "not-applied"}
+            onClick={handleMode}
           >
-            {funcOn ? "ON" : "OFF"}
+            중첩 3단계
           </Button>
-          <MiniButtonWrapper>
-            <MiniButton
-              data-value={0}
-              className={funcOn && mode === 0 ? "applied" : "not-applied"}
-              onClick={handleMode}
-            >
-              기본
-            </MiniButton>
-            <MiniButton
-              data-value={1}
-              className={funcOn && mode === 1 ? "applied" : "not-applied"}
-              onClick={handleMode}
-            >
-              ★
-            </MiniButton>
-            <MiniButton
-              data-value={2}
-              className={funcOn && mode === 2 ? "applied" : "not-applied"}
-              onClick={handleMode}
-            >
-              ★★
-            </MiniButton>
-            <MiniButton
-              data-value={3}
-              className={funcOn && mode === 3 ? "applied" : "not-applied"}
-              onClick={handleMode}
-            >
-              ★★★
-            </MiniButton>
-          </MiniButtonWrapper>
+
+          <Button
+            data-value={2}
+            className={funcOn && mode === 2 ? "applied" : "not-applied"}
+            onClick={handleMode}
+          >
+            중첩 2단계
+          </Button>
+          <Button
+            data-value={1}
+            className={funcOn && mode === 1 ? "applied" : "not-applied"}
+            onClick={handleMode}
+          >
+            중첩 1단계
+          </Button>
+
+          <Button
+            data-value={0}
+            className={funcOn && mode === 0 ? "applied" : "not-applied"}
+            onClick={handleMode}
+          >
+            원본
+          </Button>
           <Button
             className={funcOn && focusOn ? "applied" : "not-applied"}
             onClick={handleFocusOnOff}
           >
-            하이라이트만 보기
+            선택된 단계만 보기
           </Button>
-          {/* <Histogram data={text} /> */}
         </Control>
+      </Draggable>
+      <Draggable handle="strong" bounds="body">
+        <HistogramWrapper className="box no-cursor">
+          <strong>
+            <div className="title">요약 히스토그램</div>
+          </strong>
+          <Histogram data={text} focusWord={focusWord} />
+        </HistogramWrapper>
       </Draggable>
     </Wrapper>
   );

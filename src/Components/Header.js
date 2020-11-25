@@ -100,7 +100,7 @@ export default withRouter(({ history }) => {
       <HeaderWrapper>
         <HeaderColumn></HeaderColumn>
         <HeaderColumn>
-          텍스트 요약{" "}
+          테마 중심 요약{" "}
           <Span onClick={toggleMenu}>
             {whereAmI === "/read" ? "리딩" : "생성"}
           </Span>{" "}

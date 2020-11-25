@@ -19,7 +19,7 @@ const Title = styled.div`
   justify-content: center;
   align-items: center;
   &:hover {
-    cursor: pointer;
+    cursor: move;
   }
 `;
 

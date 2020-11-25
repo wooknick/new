@@ -1,6 +1,5 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import * as d3 from "d3";
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -24,9 +23,12 @@ const Bar = styled.div`
   width: ${(props) => props.width}px;
   height: ${(props) => props.height}px;
   background-color: ${(props) => props.bgColor};
+  &:hover {
+    border: 1px solid red;
+  }
 `;
 
-const Histogram = ({ data }) => {
+const Histogram = ({ data, focusWord }) => {
   const [useData, setUseData] = useState([]);
   useEffect(() => {
     if (data.length > 0) {
@@ -35,11 +37,16 @@ const Histogram = ({ data }) => {
   }, [data]);
 
   const bgColor = [
-    "rgba(0, 92, 67, 0.5)",
-    "rgba(0, 92, 67, 0.5)",
-    "rgba(0, 92, 67, 0.75)",
-    "rgba(0, 92, 67, 1)",
+    "rgba(254, 255, 224, 1)",
+    "rgba(254, 255, 224, 1)",
+    "rgba(253, 255, 178, 1)",
+    "rgba(250, 255, 110, 1)",
   ];
+
+  const onClickHandle = (e) => {
+    const idx = e.target.dataset.idx;
+    focusWord(idx);
+  };
 
   return (
     <Wrapper>
@@ -48,9 +55,11 @@ const Histogram = ({ data }) => {
           useData.map((item, idx) => (
             <Bar
               key={idx}
+              data-idx={idx}
               height={item[1] * 20 + 5}
               width={380 / useData.length}
               bgColor={bgColor[item[1]]}
+              onClick={onClickHandle}
             />
           ))}
       </Contents>

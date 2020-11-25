@@ -4,8 +4,7 @@ import Selection from "@simonwep/selection-js";
 import Draggable from "react-draggable";
 import Word from "../Components/Word";
 import Compress from "../Components/Compress";
-import Histogram from "../Components/Histogram";
-import { sonagi, news } from "../data";
+import { news } from "../data";
 
 const Wrapper = styled.div`
   margin: 0 auto;
@@ -34,8 +33,8 @@ const Control = styled.div`
   border-radius: 0px;
   background: #ffffff;
   box-shadow: 5px 5px 10px #e6e6e6, -5px -5px 10px #ffffff;
-  div.title:hover {
-    cursor: default;
+  &:hover {
+    cursor: move;
   }
 `;
 
@@ -80,8 +79,6 @@ const Create = () => {
   const data = news;
   const [text, setText] = useState([]);
   const [mainScore, setMainScore] = useState(0);
-  const [funcOn, setFuncOn] = useState(false);
-  const [mode, setMode] = useState(1); // 0: default, 1: create, 2: delete
   const [start, setStart] = useState(-1);
   const [usage, setUsage] = useState([0, 0, 0]);
   const target = useRef();
@@ -125,12 +122,6 @@ const Create = () => {
   }, []);
 
   useEffect(() => {
-    const isForbidden =
-      (mode === 1 && mainScore === MAX_SCORE) || // 추가모드인데 이미 맥스스코어이거나
-      (mode === 2 && mainScore === 0) // 삭제모드인데 제로 스코어거나
-        ? true
-        : false;
-
     const handleBeforeStart = ({ inst, selected, oe: { target } }) => {
       setStart(Number(target.id));
       for (const el of selected) {
@@ -141,6 +132,7 @@ const Create = () => {
         setMainScore(Number(target.dataset["score"]));
       }
     };
+
     const handleStart = ({ inst, selected }) => {
       for (const el of selected) {
         el.classList.remove("selected");
@@ -148,6 +140,7 @@ const Create = () => {
       }
       inst.clearSelection();
     };
+
     const handleMove = ({
       selected,
       changed: { removed, added },
@@ -228,10 +221,6 @@ const Create = () => {
     }
   }, [text]);
 
-  const handleFuncOnOff = (e) => {
-    setFuncOn((v) => !v);
-  };
-
   const handleSave = (e) => {
     localStorage.setItem("prehighlight", JSON.stringify(text));
   };
@@ -255,31 +244,6 @@ const Create = () => {
           <Button className="not-applied" onClick={handleSave}>
             저장
           </Button>
-          {/* <Button
-            className={funcOn ? "applied" : "not-applied"}
-            onClick={handleFuncOnOff}
-            onTouchEnd={handleFuncOnOff}
-          >
-            {funcOn ? "켜짐" : "꺼짐"}
-          </Button>
-          <Button
-            data-value={1}
-            className={funcOn && mode === 1 ? "applied" : "not-applied"}
-            onClick={handleMode}
-            onTouchEnd={handleMode}
-          >
-            단계 업
-          </Button>
-          <Button
-            data-value={2}
-            className={funcOn && mode === 2 ? "applied" : "not-applied"}
-            onClick={handleMode}
-            onTouchEnd={handleMode}
-          >
-            단계 다운
-          </Button>
-
-          <Histogram data={text} /> */}
         </Control>
       </Draggable>
       <Draggable handle="strong" bounds="body">

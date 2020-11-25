@@ -1,5 +1,11 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle, keyframes } from "styled-components";
 import reset from "styled-reset";
+
+const bounceKeyframes = keyframes`
+0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+    40% {transform: translateY(-30px);}
+    60% {transform: translateY(-20px);}
+`;
 
 export default createGlobalStyle`
     ${reset};
@@ -37,6 +43,7 @@ export default createGlobalStyle`
         width: 100%;
         display: flex;
         justify-content: center;
+        user-select: none;
     }
     div.text-wrapper{
         width: 100%;
@@ -61,5 +68,10 @@ export default createGlobalStyle`
         border-radius: 0px;
         background: #ffffff;
         box-shadow: inset 5px 5px 10px #e6e6e6, inset -5px -5px 10px #ffffff;
+    }
+
+    .focus-word{
+    animation-duration: 1s;
+    animation-name: ${bounceKeyframes};
     }
 `;
