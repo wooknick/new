@@ -1,6 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { withRouter } from "react-router-dom";
+import addImg from "../Images/add.gif";
+import removeImg from "../Images/remove.gif";
 
 const Header = styled.header`
   position: fixed;
@@ -47,7 +49,62 @@ const Span = styled.span`
   font-size: 1.1em;
 `;
 
-const PopUp = styled.div`
+const PopUpTypeB = styled.div`
+  width: 1000px;
+  height: 520px;
+  position: fixed;
+  top: 4rem;
+  margin: 0 auto;
+  border: 1px solid #d8d8d8;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 400;
+  line-height: 180%;
+  padding: 0 1rem;
+  box-shadow: 5px 5px 10px #e6e6e6, -5px -5px 10px #ffffff;
+  z-index: 10;
+
+  div.howtouse {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    div.howtouse__item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      div {
+        text-decoration: underline;
+        font-weight: 500;
+      }
+    }
+    img {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+  }
+  div.exit {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border-right: 1px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+`;
+
+const PopUpTypeC = styled.div`
   width: 800px;
   height: 320px;
   position: fixed;
@@ -59,6 +116,7 @@ const PopUp = styled.div`
   flex-direction: column;
   justify-content: center;
   font-size: 0.7rem;
+  font-weight: 400;
   line-height: 180%;
   padding-left: 1rem;
   box-shadow: 5px 5px 10px #e6e6e6, -5px -5px 10px #ffffff;
@@ -80,30 +138,6 @@ const PopUp = styled.div`
   }
 `;
 
-const Timer = styled.div`
-  width: 150px;
-  height: 40px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  border: 2px solid black;
-  margin-right: 2rem;
-`;
-
-const Time = styled.div``;
-
-const Button = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  &:hover {
-    background-color: yellow;
-    cursor: pointer;
-  }
-`;
-
 export default withRouter(({ history }) => {
   const [popupOpen, setPopupOpen] = useState(false);
 
@@ -118,9 +152,9 @@ export default withRouter(({ history }) => {
       <HeaderWrapper>
         <HeaderColumn>
           <Span>
-            {whereAmI === "/typea" && "타입 A"}
+            {/* {whereAmI === "/typea" && "타입 A"}
             {whereAmI === "/typeb" && "타입 B"}
-            {whereAmI === "/typec" && "타입 C"}
+            {whereAmI === "/typec" && "타입 C"} */}
           </Span>
         </HeaderColumn>
         <HeaderColumn>테마 중심 요약하기</HeaderColumn>
@@ -130,7 +164,7 @@ export default withRouter(({ history }) => {
         </HeaderColumn>
       </HeaderWrapper>
       {whereAmI === "/typeb" && popupOpen && (
-        <PopUp>
+        <PopUpTypeB>
           <div>[ 시스템 사용법 ]</div>
           <div>0. 본 시스템의 기본 단위는 어절 단위입니다.</div>
           <div>
@@ -152,20 +186,25 @@ export default withRouter(({ history }) => {
           </div>
           <br />
           <div>[ 조작법 ]</div>
-          <div>
-            어절 선택하기 : 컨트롤(Windows) 키 + 드래그 / 커맨드(MAC OS) 키 +
-            드래그
-          </div>
-          <div>
-            어절 제외하기 : 알트(Windows) 키 + 드래그 / 옵션(MAC OS) 키 + 드래그
+          <div className="howtouse">
+            <div className="howtouse__item">
+              <div>어절 선택하기</div>
+              <img src={addImg} alt="addImg"></img>
+              <div>CTRL(COMMAND) 키를 누르면서 드래그</div>
+            </div>
+            <div className="howtouse__item">
+              <div>어절 제외하기</div>
+              <img src={removeImg} alt="removeImg"></img>
+              <div>ALT(OPTION) 키를 누르면서 드래그</div>
+            </div>
           </div>
           <div className="exit" onClick={popupToggle}>
             X
           </div>
-        </PopUp>
+        </PopUpTypeB>
       )}
       {whereAmI === "/typec" && popupOpen && (
-        <PopUp>
+        <PopUpTypeC>
           <div>[ 중첩 단계별 보기 ]</div>
           <div>1. 누군가가 요약한 내용이 하이라이트 되어 나타납니다.</div>
           <div>
@@ -190,7 +229,7 @@ export default withRouter(({ history }) => {
           <div className="exit" onClick={popupToggle}>
             X
           </div>
-        </PopUp>
+        </PopUpTypeC>
       )}
     </Header>
   );
