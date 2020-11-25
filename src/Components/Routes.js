@@ -1,17 +1,17 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Home from "../Routes/Home";
-import First from "../Routes/First";
-import Second from "../Routes/Second";
-import Third from "../Routes/Third";
+import Read from "../Routes/Read";
+import Create from "../Routes/Create";
+import Normal from "../Routes/Normal";
 
 const Routes = () => {
   return (
     <Switch>
-      <Route exact path="/" component={Third} />
-      <Route path="/v1" component={First} />
-      <Route path="/v2" component={Second} />
-      <Route path="/v3" component={Third} />
+      <Route exact path="/" component={Home} />
+      <Route path="/typeA" component={Normal} />
+      <Route path="/typeB" component={Create} />
+      <Route path="/typeC" component={Read} />
       <Redirect from="*" to="/" />
     </Switch>
   );
