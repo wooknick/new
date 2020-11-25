@@ -41,11 +41,13 @@ const GaugeTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  user-select: none;
 `;
 
 const GaugePercent = styled.div`
   position: relative;
   top: -30px;
+  user-select: none;
 `;
 
 const Usage = styled.div`

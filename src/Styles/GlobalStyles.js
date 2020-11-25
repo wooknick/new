@@ -20,7 +20,7 @@ export default createGlobalStyle`
     body{
         font-weight: 300;
         width: 100%;
-        min-height: 100vh;
+        /* min-height: 100vh; */
     }
     a{
         text-decoration: none;

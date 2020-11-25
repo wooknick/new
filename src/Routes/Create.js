@@ -3,16 +3,17 @@ import styled from "styled-components";
 import Selection from "@simonwep/selection-js";
 import Draggable from "react-draggable";
 import Word from "../Components/Word";
+import Timer from "../Components/Timer";
 import Compress from "../Components/Compress";
 import { news } from "../data";
 
 const Wrapper = styled.div`
   margin: 0 auto;
+  margin-top: 3rem;
   width: 100%;
   min-height: 80vh;
   padding: 0 0;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   line-height: 2rem;
@@ -81,6 +82,7 @@ const Create = () => {
   const [mainScore, setMainScore] = useState(0);
   const [start, setStart] = useState(-1);
   const [usage, setUsage] = useState([0, 0, 0]);
+  const [shouldStart, setShouldStart] = useState(false);
   const target = useRef();
   const selection = useRef();
   const MAX_SCORE = 3;
@@ -95,11 +97,6 @@ const Create = () => {
   useEffect(() => {
     if (selection.current) {
       selection.current.clearSelection();
-      // const selected = document.querySelectorAll(
-      //   `.word[data-score='${mainScore}']`
-      // );
-      // selection.current.select([...selected]);
-      // selection.current.keepSelection();
     }
   }, [mainScore]);
 
@@ -223,7 +220,20 @@ const Create = () => {
 
   const handleSave = (e) => {
     localStorage.setItem("prehighlight", JSON.stringify(text));
+    setShouldStart(false);
   };
+
+  const startProcess = () => {
+    setShouldStart(true);
+  };
+
+  useEffect(() => {
+    if (shouldStart) {
+      selection.current.enable();
+    } else {
+      selection.current.disable();
+    }
+  }, [shouldStart]);
 
   return (
     <Wrapper>
@@ -240,9 +250,9 @@ const Create = () => {
       </div>
       <Draggable bounds="body">
         <Control className="box">
-          <div className="title">하이라이트</div>
+          <div className="title">텍스트 요약</div>
           <Button className="not-applied" onClick={handleSave}>
-            저장
+            저장하고 끝내기
           </Button>
         </Control>
       </Draggable>
@@ -251,6 +261,7 @@ const Create = () => {
           <Compress data={usage} />
         </CompressWrapper>
       </Draggable>
+      <Timer startProcess={startProcess} shouldStart={shouldStart} />
     </Wrapper>
   );
 };

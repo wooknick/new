@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { withRouter } from "react-router-dom";
 
 const Header = styled.header`
+  position: fixed;
+  top: 0;
+  background-color: white;
   width: 100%;
   height: 3rem;
   display: flex;
@@ -20,9 +23,10 @@ const HeaderWrapper = styled.div`
 
 const HeaderColumn = styled.div`
   width: 33%;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   &:last-of-type {
-    display: flex;
     justify-content: flex-end;
     padding-right: 2em;
     div {
@@ -41,9 +45,6 @@ const HeaderColumn = styled.div`
 
 const Span = styled.span`
   font-size: 1.1em;
-  &:hover {
-    cursor: pointer;
-  }
 `;
 
 const PopUp = styled.div`
@@ -79,17 +80,34 @@ const PopUp = styled.div`
   }
 `;
 
+const Timer = styled.div`
+  width: 150px;
+  height: 40px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border: 2px solid black;
+  margin-right: 2rem;
+`;
+
+const Time = styled.div``;
+
+const Button = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  &:hover {
+    background-color: yellow;
+    cursor: pointer;
+  }
+`;
+
 export default withRouter(({ history }) => {
   const [popupOpen, setPopupOpen] = useState(false);
 
   const whereAmI = history.location.pathname;
-  const toggleMenu = () => {
-    if (whereAmI === "/read") {
-      history.push("/create");
-    } else {
-      history.push("/read");
-    }
-  };
 
   const popupToggle = () => {
     setPopupOpen((v) => !v);
@@ -98,19 +116,20 @@ export default withRouter(({ history }) => {
   return (
     <Header>
       <HeaderWrapper>
-        <HeaderColumn></HeaderColumn>
         <HeaderColumn>
-          테마 중심 요약{" "}
-          <Span onClick={toggleMenu}>
-            {whereAmI === "/read" ? "리딩" : "생성"}
-          </Span>{" "}
-          프로토타입
+          <Span>
+            {whereAmI === "/typeA" && "타입 A"}
+            {whereAmI === "/typeB" && "타입 B"}
+            {whereAmI === "/typeC" && "타입 C"}
+          </Span>
         </HeaderColumn>
+        <HeaderColumn>테마 중심 요약하기</HeaderColumn>
         <HeaderColumn>
-          {whereAmI !== "/read" && <div onClick={popupToggle}>사용법</div>}
+          {whereAmI === "/typeB" && <div onClick={popupToggle}>사용법</div>}
+          {whereAmI === "/typeC" && <div onClick={popupToggle}>사용법</div>}
         </HeaderColumn>
       </HeaderWrapper>
-      {whereAmI !== "/read" && popupOpen && (
+      {whereAmI === "/typeB" && popupOpen && (
         <PopUp>
           <div>[ 시스템 사용법 ]</div>
           <div>0. 본 시스템의 기본 단위는 어절 단위입니다.</div>
@@ -140,6 +159,34 @@ export default withRouter(({ history }) => {
           <div>
             어절 제외하기 : 알트(Windows) 키 + 드래그 / 옵션(MAC OS) 키 + 드래그
           </div>
+          <div className="exit" onClick={popupToggle}>
+            X
+          </div>
+        </PopUp>
+      )}
+      {whereAmI === "/typeC" && popupOpen && (
+        <PopUp>
+          <div>[ 중첩 단계별 보기 ]</div>
+          <div>1. 누군가가 요약한 내용이 하이라이트 되어 나타납니다.</div>
+          <div>
+            2. 중첩 단계를 선택하여 하이라이트 적용 수준을 조정하세요. <br />
+          </div>
+          <div>
+            3. '선택된 단계만 보기' 버튼을 누르면, 선택되지 않은 어절들이
+            흐릿해집니다.
+          </div>
+          <br />
+          <div>[ 요약 히스토그램 ]</div>
+          <div>
+            1. 문서 전체에 대해 하이라이트 중첩이 어떤 양상을 보이고 있는지 한
+            눈에 확인할 수 있게 도와줍니다.
+          </div>
+          <div>
+            2. 히스토그램 내부의 그래프를 클릭하여 해당 어절을 확인할 수 있는
+            곳으로 빠르게 이동할 수 있습니다.
+          </div>
+          <div>3. 요약의 핵심이 되는 부분으로 빠르게 이동하세요.</div>
+
           <div className="exit" onClick={popupToggle}>
             X
           </div>

@@ -7,6 +7,7 @@ import Histogram from "../Components/Histogram";
 
 const Wrapper = styled.div`
   margin: 0 auto;
+  margin-top: 3rem;
   width: 100%;
   min-height: 80vh;
   padding: 0 0;

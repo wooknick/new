@@ -22,7 +22,7 @@ const Contents = styled.div`
 const Bar = styled.div`
   width: ${(props) => props.width}px;
   height: ${(props) => props.height}px;
-  background-color: ${(props) => props.bgColor};
+  background-color: ${(props) => props.theme.bgColor[props.bgColorScore]};
   &:hover {
     border: 1px solid red;
   }
@@ -58,7 +58,7 @@ const Histogram = ({ data, focusWord }) => {
               data-idx={idx}
               height={item[1] * 20 + 5}
               width={380 / useData.length}
-              bgColor={bgColor[item[1]]}
+              bgColorScore={item[1] === 0 ? 1 : item[1]}
               onClick={onClickHandle}
             />
           ))}

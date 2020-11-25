@@ -1,9 +1,9 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-const Highlight = (bgColor, size) => css`
+const Highlight = (score, size) => css`
   /* color: white; */
-  background: ${bgColor};
+  background: ${(props) => props.theme.bgColor[score]};
   /* opacity: 1; */
   font-size: ${size};
 `;
@@ -29,20 +29,19 @@ const Span = styled.span`
   vertical-align: center;
   transition: all 0.1s ease-in-out;
   ${(props) =>
-    props.score === 0
-      ? Normal
-      : Highlight(props.highlightColor, props.highlightSize)}
+    props.score === 0 ? Normal : Highlight(props.score, props.highlightSize)}
   ${(props) => (props.focusOn && props.score < props.showLevel ? NotFocus : "")}
 `;
 
 const Word = ({ id, text, score, showLevel, focusOn }) => {
-  const bgColor = [
-    "white",
-    "rgba(250, 255, 110, 0.2)",
-    "rgba(250, 255, 110, 0.5)",
-    "rgba(250, 255, 110, 1)",
-  ];
-  const size = ["1rem", "1.2rem", "1.4rem", "1.6rem"];
+  const bgColor = ["white", "#FBED28", "#FAD234", "#FFBD38"];
+  // const bgColor = [
+  //   "white",
+  //   "rgba(250, 255, 110, 0.2)",
+  //   "rgba(250, 255, 110, 0.5)",
+  //   "rgba(250, 255, 110, 1)",
+  // ];
+  const size = ["1rem", "1.15rem", "1.3rem", "1.45rem"];
   const tScore =
     showLevel !== undefined && showLevel < score ? showLevel : score;
   return (
