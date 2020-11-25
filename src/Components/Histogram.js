@@ -57,7 +57,7 @@ const Histogram = ({ data, focusWord }) => {
               key={idx}
               data-idx={idx}
               height={item[1] * 20 + 5}
-              width={380 / useData.length}
+              width={data.length / useData.length}
               bgColorScore={item[1] === 0 ? 1 : item[1]}
               onClick={onClickHandle}
             />

@@ -107,7 +107,7 @@ const Button = styled.div`
 export default withRouter(({ history }) => {
   const [popupOpen, setPopupOpen] = useState(false);
 
-  const whereAmI = history.location.pathname;
+  const whereAmI = history.location.pathname.toLowerCase();
 
   const popupToggle = () => {
     setPopupOpen((v) => !v);
@@ -118,18 +118,18 @@ export default withRouter(({ history }) => {
       <HeaderWrapper>
         <HeaderColumn>
           <Span>
-            {whereAmI === "/typeA" && "타입 A"}
-            {whereAmI === "/typeB" && "타입 B"}
-            {whereAmI === "/typeC" && "타입 C"}
+            {whereAmI === "/typea" && "타입 A"}
+            {whereAmI === "/typeb" && "타입 B"}
+            {whereAmI === "/typec" && "타입 C"}
           </Span>
         </HeaderColumn>
         <HeaderColumn>테마 중심 요약하기</HeaderColumn>
         <HeaderColumn>
-          {whereAmI === "/typeB" && <div onClick={popupToggle}>사용법</div>}
-          {whereAmI === "/typeC" && <div onClick={popupToggle}>사용법</div>}
+          {whereAmI === "/typeb" && <div onClick={popupToggle}>사용법</div>}
+          {whereAmI === "/typec" && <div onClick={popupToggle}>사용법</div>}
         </HeaderColumn>
       </HeaderWrapper>
-      {whereAmI === "/typeB" && popupOpen && (
+      {whereAmI === "/typeb" && popupOpen && (
         <PopUp>
           <div>[ 시스템 사용법 ]</div>
           <div>0. 본 시스템의 기본 단위는 어절 단위입니다.</div>
@@ -164,7 +164,7 @@ export default withRouter(({ history }) => {
           </div>
         </PopUp>
       )}
-      {whereAmI === "/typeC" && popupOpen && (
+      {whereAmI === "/typec" && popupOpen && (
         <PopUp>
           <div>[ 중첩 단계별 보기 ]</div>
           <div>1. 누군가가 요약한 내용이 하이라이트 되어 나타납니다.</div>

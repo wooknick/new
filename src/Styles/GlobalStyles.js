@@ -14,7 +14,8 @@ export default createGlobalStyle`
     }
     html{
         font-size: 21px;
-        font-family: 'Nanum Myeongjo', serif;
+        /* font-family: 'Nanum Myeongjo', serif; */
+        font-family: 'Noto Sans KR', sans-serif;
         width: 100%;
     }
     body{
