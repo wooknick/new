@@ -28,7 +28,7 @@ const Span = styled.span`
   display: inline-block;
   padding-right: 0.3em;
   vertical-align: center;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.1s ease-in-out;
   ${(props) =>
     props.score === 0
       ? Normal
