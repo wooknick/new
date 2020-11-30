@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/new-digital-book/static/js/main.74e3f9ea.chunk.js",
-    "main.js.map": "/new-digital-book/static/js/main.74e3f9ea.chunk.js.map",
+    "main.js": "/new-digital-book/static/js/main.1546a7ab.chunk.js",
+    "main.js.map": "/new-digital-book/static/js/main.1546a7ab.chunk.js.map",
     "runtime-main.js": "/new-digital-book/static/js/runtime-main.19f1e154.js",
     "runtime-main.js.map": "/new-digital-book/static/js/runtime-main.19f1e154.js.map",
     "static/js/2.13376bf5.chunk.js": "/new-digital-book/static/js/2.13376bf5.chunk.js",
     "static/js/2.13376bf5.chunk.js.map": "/new-digital-book/static/js/2.13376bf5.chunk.js.map",
     "index.html": "/new-digital-book/index.html",
-    "precache-manifest.e0edcfe8b9e291bc1573e1df301bd4ba.js": "/new-digital-book/precache-manifest.e0edcfe8b9e291bc1573e1df301bd4ba.js",
+    "precache-manifest.c2ca336fb736f86c14d1c769526e065a.js": "/new-digital-book/precache-manifest.c2ca336fb736f86c14d1c769526e065a.js",
     "service-worker.js": "/new-digital-book/service-worker.js",
     "static/js/2.13376bf5.chunk.js.LICENSE.txt": "/new-digital-book/static/js/2.13376bf5.chunk.js.LICENSE.txt",
     "static/media/add.gif": "/new-digital-book/static/media/add.c27473d0.gif",
@@ -16,6 +16,6 @@
   "entrypoints": [
     "static/js/runtime-main.19f1e154.js",
     "static/js/2.13376bf5.chunk.js",
-    "static/js/main.74e3f9ea.chunk.js"
+    "static/js/main.1546a7ab.chunk.js"
   ]
 }
