@@ -1,9 +1,9 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Home from "../Routes/Home";
-import ReadTypeA from "../Routes/ReadTypeA";
+import ResultTypeA from "../Routes/ResultTypeA";
 import CreateTypeA from "../Routes/CreateTypeA";
-import ReadTypeB from "../Routes/ReadTypeB";
+import ResultTypeB from "../Routes/ResultTypeB";
 import CreateTypeB from "../Routes/CreateTypeB";
 
 const Routes = () => {
@@ -11,9 +11,9 @@ const Routes = () => {
     <Switch>
       <Route exact path="/" component={Home} />
       <Route path="/create/a" component={CreateTypeA} />
-      <Route path="/read/a" component={ReadTypeA} />
+      <Route path="/result/a" component={ResultTypeA} />
       <Route path="/create/b" component={CreateTypeB} />
-      <Route path="/read/b" component={ReadTypeB} />
+      <Route path="/result/b" component={ResultTypeB} />
       <Redirect from="*" to="/" />
     </Switch>
   );

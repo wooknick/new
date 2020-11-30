@@ -226,7 +226,7 @@ const CreateTypeA = withRouter(({ history }) => {
 
   const handleSave = (e) => {
     localStorage.setItem("highlighttypea", JSON.stringify(text));
-    history.push("/read/a");
+    history.push("/result/a");
   };
 
   const handleReset = (e) => {
@@ -255,7 +255,7 @@ const CreateTypeA = withRouter(({ history }) => {
             모두 지우기
           </Button>
           <Button className="not-applied" onClick={handleSave}>
-            결과 확인하기
+            저장 후 결과 확인
           </Button>
         </Control>
       </Draggable>

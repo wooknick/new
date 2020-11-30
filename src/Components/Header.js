@@ -56,7 +56,7 @@ const TitleSpan = styled.span`
 
 const PopUpTypeA = styled.div`
   width: 1000px;
-  height: 520px;
+  height: 550px;
   position: fixed;
   top: 4rem;
   margin: 0 auto;
@@ -149,6 +149,9 @@ export default withRouter(({ history }) => {
   const whereAmI = history.location.pathname.toLowerCase();
   const [_, func, type] = whereAmI.split("/");
 
+  useState(() => {
+    setPopupOpen(false);
+  }, [func]);
   const popupToggle = () => {
     setPopupOpen((v) => !v);
   };
@@ -193,6 +196,10 @@ export default withRouter(({ history }) => {
             4. 선택된 내용을 본인만의 언어로 다시 정리하여 쓸 필요는 없습니다.
             지금 보이는 구조가 곧 요약의 결과물이니까요.
           </div>
+          <div>
+            5. 요약이 끝나면, '저장 후 결과 확인' 버튼을 눌러 요약 결과를
+            살펴보세요.
+          </div>
           <br />
           <div>[ 조작법 ]</div>
           <div className="howtouse">
@@ -215,7 +222,7 @@ export default withRouter(({ history }) => {
       {func === "read" && popupOpen && (
         <PopUpTypeB>
           <div>[ 중첩 단계별 보기 ]</div>
-          <div>1. 누군가가 요약한 내용이 하이라이트 되어 나타납니다.</div>
+          <div>1. 내가 요약한 내용이 하이라이트 되어 나타납니다.</div>
           <div>
             2. 중첩 단계를 선택하여 하이라이트 적용 수준을 조정하세요. <br />
           </div>
@@ -233,7 +240,7 @@ export default withRouter(({ history }) => {
             2. 히스토그램 내부의 그래프를 클릭하여 해당 어절을 확인할 수 있는
             곳으로 빠르게 이동할 수 있습니다.
           </div>
-          <div>3. 요약의 핵심이 되는 부분으로 빠르게 이동하세요.</div>
+          <div>3. 요약의 핵심이 되는 부분으로 빠르게 이동하여 확인하세요.</div>
 
           <div className="exit" onClick={popupToggle}>
             X

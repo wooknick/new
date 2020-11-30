@@ -226,7 +226,7 @@ const CreateTypeB = withRouter(({ history }) => {
 
   const handleSave = (e) => {
     localStorage.setItem("highlighttypeb", JSON.stringify(text));
-    history.push("/read/b");
+    history.push("/result/b");
   };
 
   const handleReset = (e) => {
