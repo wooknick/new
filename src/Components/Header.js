@@ -14,13 +14,14 @@ const Header = styled.header`
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid #d6d6d6;
-  z-index: 2;
+  z-index: 10;
 `;
 
 const HeaderWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  z-index: 2;
 `;
 
 const HeaderColumn = styled.div`
@@ -168,7 +169,7 @@ export default withRouter(({ history }) => {
         <HeaderColumn>
           <TitleSpan>
             {func === "create" && "텍스트 요약하기"}
-            {func === "read" && "요약 결과 확인"}
+            {func === "result" && "요약 결과 확인"}
           </TitleSpan>
         </HeaderColumn>
         <HeaderColumn>
@@ -189,8 +190,8 @@ export default withRouter(({ history }) => {
           </div>
           <div>( 중첩은 최대 세 번 까지 가능합니다. )</div>
           <div>
-            3. 원본을 얼만큼 압축해서 요약하고 싶나요? 목표 게이지를 직접
-            드래그하여 목표를 설정하세요.
+            3. 원본을 얼만큼 압축해서 요약하고 싶나요? 좌측에 보이는 요약률
+            위젯의 목표 게이지를 직접 드래그하여 목표를 설정하세요.
           </div>
           <div>
             4. 선택된 내용을 본인만의 언어로 다시 정리하여 쓸 필요는 없습니다.
@@ -219,7 +220,7 @@ export default withRouter(({ history }) => {
           </div>
         </PopUpTypeA>
       )}
-      {func === "read" && popupOpen && (
+      {func === "result" && popupOpen && (
         <PopUpTypeB>
           <div>[ 중첩 단계별 보기 ]</div>
           <div>1. 내가 요약한 내용이 하이라이트 되어 나타납니다.</div>

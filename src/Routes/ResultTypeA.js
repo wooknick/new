@@ -25,7 +25,7 @@ const LevelControl = styled.div`
   border: 1px solid #d6d6d6;
   background-color: rgba(255, 255, 255, 1);
   position: fixed;
-  top: 300px;
+  bottom: 230px;
   right: 50px;
   display: flex;
   flex-direction: column;
@@ -34,6 +34,7 @@ const LevelControl = styled.div`
   border-radius: 0px;
   background: #ffffff;
   box-shadow: 5px 5px 10px #e6e6e6, -5px -5px 10px #ffffff;
+  z-index: 3;
   &:hover {
     cursor: move;
   }
@@ -45,7 +46,7 @@ const Control = styled.div`
   border: 1px solid #d6d6d6;
   background-color: rgba(255, 255, 255, 1);
   position: fixed;
-  top: 720px;
+  bottom: 50px;
   right: 50px;
   display: flex;
   flex-direction: column;
@@ -54,6 +55,7 @@ const Control = styled.div`
   border-radius: 0px;
   background: #ffffff;
   box-shadow: 5px 5px 10px #e6e6e6, -5px -5px 10px #ffffff;
+  z-index: 3;
   &:hover {
     cursor: move;
   }
@@ -65,8 +67,8 @@ const HistogramWrapper = styled.div`
   border: 1px solid #d6d6d6;
   background-color: rgba(255, 255, 255, 1);
   position: fixed;
-  top: 100px;
-  right: 50px;
+  bottom: 50px;
+  left: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -75,6 +77,7 @@ const HistogramWrapper = styled.div`
   background: #ffffff;
   box-shadow: 5px 5px 10px #e6e6e6, -5px -5px 10px #ffffff;
   user-select: none;
+  z-index: 3;
   div.title:hover {
     cursor: move;
   }

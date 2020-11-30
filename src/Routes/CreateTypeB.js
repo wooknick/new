@@ -25,7 +25,7 @@ const Control = styled.div`
   border: 1px solid #d6d6d6;
   background-color: rgba(255, 255, 255, 1);
   position: fixed;
-  top: 650px;
+  bottom: 50px;
   right: 50px;
   display: flex;
   flex-direction: column;
@@ -45,8 +45,8 @@ const CompressWrapper = styled.div`
   border: 1px solid #d6d6d6;
   background-color: rgba(255, 255, 255, 1);
   position: fixed;
-  top: 100px;
-  right: 50px;
+  top: calc((100vh - 500px) / 2);
+  left: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -54,6 +54,7 @@ const CompressWrapper = styled.div`
   border-radius: 0px;
   background: #ffffff;
   box-shadow: 5px 5px 10px #e6e6e6, -5px -5px 10px #ffffff;
+  z-index: 3;
   div.title:hover {
     cursor: default;
   }
@@ -255,7 +256,7 @@ const CreateTypeB = withRouter(({ history }) => {
             모두 지우기
           </Button>
           <Button className="not-applied" onClick={handleSave}>
-            결과 확인하기
+            저장 후 결과 확인
           </Button>
         </Control>
       </Draggable>
