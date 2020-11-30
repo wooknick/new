@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Word from "../Components/Word";
 import Timer from "../Components/Timer";
-import { news } from "../data";
+import { exit, news, avengers } from "../data";
 
 const Wrapper = styled.div`
   margin: 0 auto;
@@ -63,7 +63,7 @@ const Button = styled.div`
 `;
 
 const Create = () => {
-  const data = news;
+  const data = exit;
   const [text, setText] = useState([]);
   const [shouldStart, setShouldStart] = useState(false);
 

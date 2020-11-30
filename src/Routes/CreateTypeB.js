@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Selection from "@simonwep/selection-js";
 import Draggable from "react-draggable";
+import { withRouter } from "react-router-dom";
 import Word from "../Components/Word";
-import Timer from "../Components/Timer";
 import Compress from "../Components/Compress";
-import { exit, news, news2, avengers } from "../data";
+import { news } from "../data";
 
 const Wrapper = styled.div`
   margin: 0 auto;
@@ -25,7 +25,7 @@ const Control = styled.div`
   border: 1px solid #d6d6d6;
   background-color: rgba(255, 255, 255, 1);
   position: fixed;
-  bottom: 150px;
+  top: 650px;
   right: 50px;
   display: flex;
   flex-direction: column;
@@ -76,16 +76,13 @@ const Button = styled.div`
     box-shadow: inset 5px 5px 10px #e6e6e6, inset -5px -5px 10px #ffffff;
   }
 `;
-const Create = () => {
-  const data = exit;
-  // const data = news2;
-  // const data = news;
-  // const data = avengers;
+
+const CreateTypeB = withRouter(({ history }) => {
+  const data = news;
   const [text, setText] = useState([]);
   const [mainScore, setMainScore] = useState(0);
   const [start, setStart] = useState(-1);
   const [usage, setUsage] = useState([0, 0, 0]);
-  const [shouldStart, setShouldStart] = useState(false);
   const target = useRef();
   const selection = useRef();
   const MAX_SCORE = 3;
@@ -94,7 +91,13 @@ const Create = () => {
     // init
     let idx = 0;
     const newText = data[idx].split(/\s/g).map((item, idx) => [item, 0]);
-    setText(newText);
+    const fetchText = localStorage.getItem("highlighttypeb");
+    if (fetchText) {
+      const preHighlight = JSON.parse(fetchText);
+      setText(preHighlight.map((item) => [...item, 0]));
+    } else {
+      setText(newText);
+    }
   }, [data]);
 
   useEffect(() => {
@@ -222,21 +225,15 @@ const Create = () => {
   }, [text]);
 
   const handleSave = (e) => {
-    // localStorage.setItem("prehighlight", JSON.stringify(text));
-    setShouldStart(false);
+    localStorage.setItem("highlighttypeb", JSON.stringify(text));
+    history.push("/read/b");
   };
 
-  const startProcess = () => {
-    setShouldStart(true);
+  const handleReset = (e) => {
+    let idx = 0;
+    const newText = data[idx].split(/\s/g).map((item, idx) => [item, 0]);
+    setText(newText);
   };
-
-  useEffect(() => {
-    if (shouldStart) {
-      selection.current.enable();
-    } else {
-      selection.current.disable();
-    }
-  }, [shouldStart]);
 
   return (
     <Wrapper>
@@ -254,8 +251,11 @@ const Create = () => {
       <Draggable bounds="body">
         <Control className="box">
           <div className="title">텍스트 요약</div>
+          <Button className="not-applied" onClick={handleReset}>
+            모두 지우기
+          </Button>
           <Button className="not-applied" onClick={handleSave}>
-            저장하고 끝내기
+            결과 확인하기
           </Button>
         </Control>
       </Draggable>
@@ -264,9 +264,8 @@ const Create = () => {
           <Compress data={usage} />
         </CompressWrapper>
       </Draggable>
-      <Timer startProcess={startProcess} shouldStart={shouldStart} />
     </Wrapper>
   );
-};
+});
 
-export default Create;
+export default CreateTypeB;

@@ -46,10 +46,15 @@ const HeaderColumn = styled.div`
 `;
 
 const Span = styled.span`
-  font-size: 1.1em;
+  font-size: 1rem;
 `;
 
-const PopUpTypeB = styled.div`
+const TitleSpan = styled.span`
+  font-size: 1.2rem;
+  font-weight: 400;
+`;
+
+const PopUpTypeA = styled.div`
   width: 1000px;
   height: 520px;
   position: fixed;
@@ -104,7 +109,7 @@ const PopUpTypeB = styled.div`
   }
 `;
 
-const PopUpTypeC = styled.div`
+const PopUpTypeB = styled.div`
   width: 800px;
   height: 320px;
   position: fixed;
@@ -142,6 +147,7 @@ export default withRouter(({ history }) => {
   const [popupOpen, setPopupOpen] = useState(false);
 
   const whereAmI = history.location.pathname.toLowerCase();
+  const [_, func, type] = whereAmI.split("/");
 
   const popupToggle = () => {
     setPopupOpen((v) => !v);
@@ -152,19 +158,22 @@ export default withRouter(({ history }) => {
       <HeaderWrapper>
         <HeaderColumn>
           <Span>
-            {/* {whereAmI === "/typea" && "타입 A"}
-            {whereAmI === "/typeb" && "타입 B"}
-            {whereAmI === "/typec" && "타입 C"} */}
+            {type === "a" && "테마 A - 핵심 내용을 중심으로"}
+            {type === "b" && "테마 B - 인상 깊은 부분을 중심으로"}
           </Span>
         </HeaderColumn>
-        <HeaderColumn>테마 중심 요약하기</HeaderColumn>
         <HeaderColumn>
-          {whereAmI === "/typeb" && <div onClick={popupToggle}>사용법</div>}
-          {whereAmI === "/typec" && <div onClick={popupToggle}>사용법</div>}
+          <TitleSpan>
+            {func === "create" && "텍스트 요약하기"}
+            {func === "read" && "요약 결과 확인"}
+          </TitleSpan>
+        </HeaderColumn>
+        <HeaderColumn>
+          <div onClick={popupToggle}>사용법</div>
         </HeaderColumn>
       </HeaderWrapper>
-      {whereAmI === "/typeb" && popupOpen && (
-        <PopUpTypeB>
+      {func === "create" && popupOpen && (
+        <PopUpTypeA>
           <div>[ 시스템 사용법 ]</div>
           <div>0. 본 시스템의 기본 단위는 어절 단위입니다.</div>
           <div>
@@ -201,10 +210,10 @@ export default withRouter(({ history }) => {
           <div className="exit" onClick={popupToggle}>
             X
           </div>
-        </PopUpTypeB>
+        </PopUpTypeA>
       )}
-      {whereAmI === "/typec" && popupOpen && (
-        <PopUpTypeC>
+      {func === "read" && popupOpen && (
+        <PopUpTypeB>
           <div>[ 중첩 단계별 보기 ]</div>
           <div>1. 누군가가 요약한 내용이 하이라이트 되어 나타납니다.</div>
           <div>
@@ -229,7 +238,7 @@ export default withRouter(({ history }) => {
           <div className="exit" onClick={popupToggle}>
             X
           </div>
-        </PopUpTypeC>
+        </PopUpTypeB>
       )}
     </Header>
   );

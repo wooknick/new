@@ -100,6 +100,7 @@ const Compress = ({ data }) => {
   const resiszeStopHandle = (_, __, ___, delta) => {
     setTagetCompress(targetCompress + delta.height / 4);
   };
+
   const resiszeHandle = (_, __, ___, delta) => {
     if (delta.height / 4 !== targetCompressDelta) {
       setTargetCompressDelta(delta.height / 4);
