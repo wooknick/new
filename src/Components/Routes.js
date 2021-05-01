@@ -1,18 +1,14 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
-import Home from "../Routes/Home";
-import Read from "../Routes/Read";
 import Create from "../Routes/Create";
-import Normal from "../Routes/Normal";
+import Result from "../Routes/Result";
 
 const Routes = () => {
   return (
     <Switch>
-      <Route exact path="/" component={Home} />
-      <Route path="/typeA" component={Normal} />
-      <Route path="/typeB" component={Create} />
-      <Route path="/typeC" component={Read} />
-      <Redirect from="*" to="/" />
+      <Route path="/create" component={Create} />
+      <Route path="/result" component={Result} />
+      <Redirect from="*" to="/create" />
     </Switch>
   );
 };

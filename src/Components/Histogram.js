@@ -32,7 +32,8 @@ const Histogram = ({ data, focusWord }) => {
   const [useData, setUseData] = useState([]);
   useEffect(() => {
     if (data.length > 0) {
-      setUseData([...data.filter((item) => item[0] !== "<br/>")]);
+      // setUseData([...data.filter((item) => item[0] !== "<br/>")]);
+      setUseData([...data]);
     }
   }, [data]);
 
