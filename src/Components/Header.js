@@ -161,10 +161,7 @@ export default withRouter(({ history }) => {
     <Header>
       <HeaderWrapper>
         <HeaderColumn>
-          <Span>
-            {type === "a" && "테마 A - 핵심 내용을 중심으로"}
-            {type === "b" && "테마 B - 인상 깊은 부분을 중심으로"}
-          </Span>
+          <Span></Span>
         </HeaderColumn>
         <HeaderColumn>
           <TitleSpan>
