@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.js": "/new-digital-book/static/js/main.7657f83d.chunk.js",
-    "main.js.map": "/new-digital-book/static/js/main.7657f83d.chunk.js.map",
-    "runtime-main.js": "/new-digital-book/static/js/runtime-main.19f1e154.js",
-    "runtime-main.js.map": "/new-digital-book/static/js/runtime-main.19f1e154.js.map",
-    "static/js/2.13376bf5.chunk.js": "/new-digital-book/static/js/2.13376bf5.chunk.js",
-    "static/js/2.13376bf5.chunk.js.map": "/new-digital-book/static/js/2.13376bf5.chunk.js.map",
-    "index.html": "/new-digital-book/index.html",
-    "precache-manifest.64bab9d62c4264883b9481a86397a6c3.js": "/new-digital-book/precache-manifest.64bab9d62c4264883b9481a86397a6c3.js",
-    "service-worker.js": "/new-digital-book/service-worker.js",
-    "static/js/2.13376bf5.chunk.js.LICENSE.txt": "/new-digital-book/static/js/2.13376bf5.chunk.js.LICENSE.txt",
-    "static/media/add.gif": "/new-digital-book/static/media/add.c27473d0.gif",
-    "static/media/remove.gif": "/new-digital-book/static/media/remove.b2cd5f98.gif"
+    "main.js": "/playful-text-summarization/static/js/main.257ff11b.chunk.js",
+    "main.js.map": "/playful-text-summarization/static/js/main.257ff11b.chunk.js.map",
+    "runtime-main.js": "/playful-text-summarization/static/js/runtime-main.349681bb.js",
+    "runtime-main.js.map": "/playful-text-summarization/static/js/runtime-main.349681bb.js.map",
+    "static/js/2.fea420de.chunk.js": "/playful-text-summarization/static/js/2.fea420de.chunk.js",
+    "static/js/2.fea420de.chunk.js.map": "/playful-text-summarization/static/js/2.fea420de.chunk.js.map",
+    "index.html": "/playful-text-summarization/index.html",
+    "precache-manifest.614a6ebdadf8f6b7ce1f4e4b79870874.js": "/playful-text-summarization/precache-manifest.614a6ebdadf8f6b7ce1f4e4b79870874.js",
+    "service-worker.js": "/playful-text-summarization/service-worker.js",
+    "static/js/2.fea420de.chunk.js.LICENSE.txt": "/playful-text-summarization/static/js/2.fea420de.chunk.js.LICENSE.txt",
+    "static/media/add.gif": "/playful-text-summarization/static/media/add.c27473d0.gif",
+    "static/media/remove.gif": "/playful-text-summarization/static/media/remove.b2cd5f98.gif"
   },
   "entrypoints": [
-    "static/js/runtime-main.19f1e154.js",
-    "static/js/2.13376bf5.chunk.js",
-    "static/js/main.7657f83d.chunk.js"
+    "static/js/runtime-main.349681bb.js",
+    "static/js/2.fea420de.chunk.js",
+    "static/js/main.257ff11b.chunk.js"
   ]
 }
